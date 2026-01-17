@@ -361,7 +361,7 @@ const App: React.FC = () => {
 
       default:
         return (
-          <div className="min-h-[85vh] flex flex-col animate-in fade-in duration-700 pb-36">
+          <div className="min-h-[80vh] flex flex-col animate-in fade-in duration-700 pb-44">
             {/* Spacious Hero Section */}
             <section className="flex-1 flex flex-col items-center justify-center text-center px-8 py-12 relative">
               {/* Soft gradient orb */}
@@ -389,23 +389,26 @@ const App: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Main action - elegant and inviting */}
-                <div className="pt-4">
+                {/* Main action - light and elegant */}
+                <div className="pt-6">
                   <button
                     onClick={() => setIsCameraOpen(true)}
-                    className="group relative inline-flex items-center gap-4 px-8 py-5 bg-slate-900 text-white rounded-full font-bold text-lg shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:shadow-slate-900/30 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300"
+                    className="group relative inline-flex items-center gap-3 px-6 py-4 bg-white text-slate-800 rounded-2xl font-semibold text-base border border-slate-200 shadow-sm hover:shadow-lg hover:border-emerald-200 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300"
                   >
-                    <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors">
-                      <Camera className="w-5 h-5 text-emerald-400" />
+                    <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+                      <Camera className="w-5 h-5 text-emerald-600" />
                     </div>
                     <span>Start Diagnosis</span>
                   </button>
                 </div>
 
-                {/* Subtle helper text */}
-                <p className="text-slate-400 text-xs font-medium pt-2">
-                  or upload from your gallery
-                </p>
+                {/* Secondary option */}
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="text-slate-400 text-sm font-medium pt-4 hover:text-emerald-600 transition-colors"
+                >
+                  or upload from gallery
+                </button>
               </div>
             </section>
 
