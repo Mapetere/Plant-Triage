@@ -5,9 +5,9 @@ import DiagnosisDisplay from './components/DiagnosisDisplay';
 import CameraView from './components/CameraView';
 import { AppView, PlantDiagnosis, DiaryEntry, AppTheme } from './types';
 import { analyzePlant } from './services/geminiService';
-import { 
-  Camera, Image as ImageIcon, Loader2, Sparkles, Microscope, 
-  Info, Scan, Link as LinkIcon, 
+import {
+  Camera, Image as ImageIcon, Loader2, Sparkles, Microscope,
+  Info, Scan, Link as LinkIcon,
   BookOpen, Settings, Bell, Palette, BarChart3,
   Dna, Layers, ArrowUpRight, TrendingUp, Hexagon, X, Globe
 } from 'lucide-react';
@@ -68,10 +68,10 @@ const App: React.FC = () => {
   const handleRemoteUrlSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!remoteUrl.trim()) return;
-    
+
     setIsLoading(true);
     setIsRemoteInputOpen(false);
-    
+
     try {
       const response = await fetch(remoteUrl);
       const blob = await response.blob();
@@ -92,7 +92,7 @@ const App: React.FC = () => {
       const permission = await Notification.requestPermission();
       if (permission === "granted") {
         setNotifEnabled(true);
-        new Notification("Plant Triage: Bio-Link Established", { 
+        new Notification("Plant Triage: Bio-Link Established", {
           body: "The system will now monitor your botanical sync cycles.",
           icon: 'https://cdn-icons-png.flaticon.com/512/892/892926.png'
         });
@@ -116,7 +116,7 @@ const App: React.FC = () => {
         <div className="relative group">
           <div className="absolute inset-0 bg-emerald-500/20 blur-3xl animate-pulse rounded-full"></div>
           <div className="hexagon w-24 h-28 bg-emerald-600 flex items-center justify-center relative z-10 animate-bounce">
-             <Loader2 className="w-12 h-12 text-white animate-spin" />
+            <Loader2 className="w-12 h-12 text-white animate-spin" />
           </div>
           <Dna className="absolute -top-4 -right-4 w-8 h-8 text-emerald-400 animate-pulse" />
         </div>
@@ -127,9 +127,9 @@ const App: React.FC = () => {
           </p>
         </div>
         <div className="flex gap-2">
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:-0.3s]"></div>
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:-0.15s]"></div>
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"></div>
+          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:-0.3s]"></div>
+          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce [animation-delay:-0.15s]"></div>
+          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"></div>
         </div>
       </div>
     );
@@ -141,8 +141,8 @@ const App: React.FC = () => {
         ) : (
           <div className="p-12 text-center flex flex-col items-center justify-center min-h-[65vh] bg-grid">
             <div className="group relative" onClick={() => setIsCameraOpen(true)}>
-               <div className="absolute -inset-4 bg-emerald-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-               <div className="hexagon w-32 h-36 bg-white shadow-2xl flex items-center justify-center mb-8 border border-slate-200 transition-transform group-hover:scale-105 group-hover:-rotate-3 cursor-pointer">
+              <div className="absolute -inset-4 bg-emerald-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="hexagon w-32 h-36 bg-white shadow-2xl flex items-center justify-center mb-8 border border-slate-200 transition-transform group-hover:scale-105 group-hover:-rotate-3 cursor-pointer">
                 <Microscope className="w-16 h-16 text-emerald-600 animate-pulse" />
               </div>
             </div>
@@ -151,21 +151,21 @@ const App: React.FC = () => {
               <p className="text-slate-600 font-medium text-sm">Align specimen within the optical frame.</p>
             </div>
             <div className="flex flex-col w-full gap-4 max-w-xs">
-              <button 
-                  onClick={() => setIsCameraOpen(true)}
-                  className="px-8 py-5 bg-slate-950 text-white rounded-[28px] font-bold shadow-2xl flex items-center justify-center gap-4 active:scale-95 transition-all hover:bg-slate-800"
-                >
-                  <Camera className="w-6 h-6 text-emerald-400" />
-                  Launch Lens
+              <button
+                onClick={() => setIsCameraOpen(true)}
+                className="px-8 py-5 bg-slate-950 text-white rounded-[28px] font-bold shadow-2xl flex items-center justify-center gap-4 active:scale-95 transition-all hover:bg-slate-800"
+              >
+                <Camera className="w-6 h-6 text-emerald-400" />
+                Launch Lens
+              </button>
+              <div className="flex gap-4">
+                <button onClick={() => fileInputRef.current?.click()} className="flex-1 py-4 bg-white border border-slate-200 rounded-[22px] text-xs font-black text-slate-700 flex items-center justify-center gap-2 hover:bg-slate-50 uppercase tracking-tighter shadow-sm">
+                  <ImageIcon className="w-4 h-4" /> Library
                 </button>
-                <div className="flex gap-4">
-                  <button onClick={() => fileInputRef.current?.click()} className="flex-1 py-4 bg-white border border-slate-200 rounded-[22px] text-xs font-black text-slate-700 flex items-center justify-center gap-2 hover:bg-slate-50 uppercase tracking-tighter shadow-sm">
-                    <ImageIcon className="w-4 h-4" /> Library
-                  </button>
-                  <button onClick={() => setIsRemoteInputOpen(true)} className="flex-1 py-4 bg-white border border-slate-200 rounded-[22px] text-xs font-black text-slate-700 flex items-center justify-center gap-2 hover:bg-slate-50 uppercase tracking-tighter shadow-sm">
-                    <LinkIcon className="w-4 h-4" /> Remote
-                  </button>
-                </div>
+                <button onClick={() => setIsRemoteInputOpen(true)} className="flex-1 py-4 bg-white border border-slate-200 rounded-[22px] text-xs font-black text-slate-700 flex items-center justify-center gap-2 hover:bg-slate-50 uppercase tracking-tighter shadow-sm">
+                  <LinkIcon className="w-4 h-4" /> Remote
+                </button>
+              </div>
             </div>
 
             {isRemoteInputOpen && (
@@ -183,8 +183,8 @@ const App: React.FC = () => {
                   <form onSubmit={handleRemoteUrlSubmit} className="space-y-4">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Image Endpoint URL</label>
-                      <input 
-                        type="url" 
+                      <input
+                        type="url"
                         required
                         placeholder="https://example.com/specimen.jpg"
                         value={remoteUrl}
@@ -205,9 +205,9 @@ const App: React.FC = () => {
       case AppView.ANALYTICS:
         return (
           <div className="p-8 space-y-8 animate-in slide-in-from-right-4 duration-500 pb-32">
-             <div className="flex items-center gap-5">
+            <div className="flex items-center gap-5">
               <div className="w-16 h-16 bg-emerald-50 rounded-[24px] flex items-center justify-center border border-emerald-100 shadow-inner">
-                  <BarChart3 className="w-8 h-8 text-emerald-600" />
+                <BarChart3 className="w-8 h-8 text-emerald-600" />
               </div>
               <div className="space-y-0.5">
                 <h2 className="text-3xl font-black text-slate-900 font-display tracking-tighter uppercase">Bio-Analytics</h2>
@@ -237,23 +237,23 @@ const App: React.FC = () => {
               </div>
             </div>
             <div className="bg-slate-950 rounded-[48px] p-10 text-white relative overflow-hidden shadow-2xl border border-white/5 group">
-               <div className="absolute -right-16 -bottom-16 w-64 h-64 bg-emerald-500/20 rounded-full blur-[80px] group-hover:bg-emerald-500/30 transition-colors"></div>
-               <div className="flex items-center gap-4 mb-8">
-                   <div className="w-12 h-12 bg-emerald-500/10 rounded-[18px] flex items-center justify-center border border-emerald-500/30 group-hover:rotate-12 transition-transform">
-                       <Sparkles className="w-6 h-6 text-emerald-400" />
-                   </div>
-                   <div className="space-y-0.5">
-                    <h3 className="text-2xl font-black font-display tracking-tight uppercase">Predictor</h3>
-                    <p className="text-[9px] font-black text-emerald-400 uppercase tracking-[0.3em]">Quantum Modeler v4</p>
-                   </div>
-               </div>
-               <p className="text-slate-400 text-sm leading-relaxed mb-10 font-medium">
-                 Vision transformers model chloroplast degradation at the cellular level, providing 99.2% accuracy.
-               </p>
-               <button className="w-full py-5 bg-emerald-500 text-slate-950 font-black rounded-[24px] hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center justify-center gap-3 uppercase tracking-tighter">
-                 <Layers className="w-5 h-5" />
-                 Initialize Sequence
-               </button>
+              <div className="absolute -right-16 -bottom-16 w-64 h-64 bg-emerald-500/20 rounded-full blur-[80px] group-hover:bg-emerald-500/30 transition-colors"></div>
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 bg-emerald-500/10 rounded-[18px] flex items-center justify-center border border-emerald-500/30 group-hover:rotate-12 transition-transform">
+                  <Sparkles className="w-6 h-6 text-emerald-400" />
+                </div>
+                <div className="space-y-0.5">
+                  <h3 className="text-2xl font-black font-display tracking-tight uppercase">Predictor</h3>
+                  <p className="text-[9px] font-black text-emerald-400 uppercase tracking-[0.3em]">Quantum Modeler v4</p>
+                </div>
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed mb-10 font-medium">
+                Vision transformers model chloroplast degradation at the cellular level, providing 99.2% accuracy.
+              </p>
+              <button className="w-full py-5 bg-emerald-500 text-slate-950 font-black rounded-[24px] hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center justify-center gap-3 uppercase tracking-tighter">
+                <Layers className="w-5 h-5" />
+                Initialize Sequence
+              </button>
             </div>
           </div>
         );
@@ -340,7 +340,7 @@ const App: React.FC = () => {
               </div>
               <div className="flex gap-3">
                 {['12', '24', '48', '72'].map(h => (
-                  <button 
+                  <button
                     key={h}
                     onClick={() => setNotifInterval(h)}
                     className={`flex-1 py-4 rounded-[20px] font-black text-xs transition-all ${notifInterval === h ? 'bg-slate-950 text-white shadow-xl scale-110 z-10' : 'bg-slate-50 text-slate-500 hover:bg-emerald-50 border border-transparent hover:text-emerald-700'}`}
@@ -349,7 +349,7 @@ const App: React.FC = () => {
                   </button>
                 ))}
               </div>
-              <button 
+              <button
                 onClick={requestNotifications}
                 className={`w-full py-5 rounded-[24px] font-black flex items-center justify-center gap-3 transition-all uppercase tracking-widest ${notifEnabled ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-950 text-white shadow-xl active:scale-95'}`}
               >
@@ -361,64 +361,67 @@ const App: React.FC = () => {
 
       default:
         return (
-          <div className="p-8 space-y-12 animate-in fade-in duration-700 pb-36 bg-grid">
-            <section className="space-y-4 mt-6">
+          <div className="p-8 space-y-10 animate-in fade-in duration-700 pb-36 bg-grid">
+            <section className="space-y-5 mt-4">
               <div className="flex items-center gap-3">
-                <div className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-lg text-[10px] font-black uppercase tracking-[0.3em] shadow-sm">Autonomous Node 3.8.2</div>
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                <div className="px-4 py-1.5 bg-emerald-50 text-emerald-700 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] border border-emerald-100">Autonomous Node 3.8.2</div>
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_12px_rgba(16,185,129,0.6)]"></div>
               </div>
-              <h2 className="text-7xl font-black text-slate-900 leading-[0.82] font-display tracking-tighter">Plant<br/><span className="text-emerald-600 uppercase">Triage</span> Lab</h2>
-              <p className="text-slate-600 font-medium text-xl leading-snug max-w-[320px]">Precision diagnostic matrix for high-fidelity botanical surveillance.</p>
+              <h2 className="text-6xl font-black text-slate-900 leading-[0.85] font-display tracking-tighter">Plant<br /><span className="text-gradient uppercase">Triage</span> Lab</h2>
+              <p className="text-slate-500 font-medium text-lg leading-relaxed max-w-[300px]">Precision diagnostic matrix for high-fidelity botanical surveillance.</p>
             </section>
             <section className="relative group">
-               <div className="absolute -inset-1.5 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-[52px] blur-2xl opacity-10 group-hover:opacity-30 transition-opacity duration-700"></div>
-               <div className="bg-white border border-slate-200 rounded-[52px] p-12 shadow-2xl relative overflow-hidden group-hover:-translate-y-2 transition-transform duration-500">
-                  <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none group-hover:rotate-45 transition-transform duration-1000">
-                    <BrandIcon className="w-56 h-56" />
-                  </div>
-                  <div className="relative z-10 space-y-10">
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <Hexagon className="w-5 h-5 text-emerald-500" />
-                        <h3 className="text-2xl font-black text-slate-900 font-sans uppercase tracking-tighter">Lens Ready</h3>
-                      </div>
-                      <p className="text-slate-600 text-sm font-medium leading-relaxed">Initiate real-time botanical triangulation sequence on your target specimen.</p>
-                    </div>
-                    <button 
-                      onClick={() => setIsCameraOpen(true)}
-                      className="w-full py-7 bg-slate-950 text-white rounded-[32px] font-black text-2xl shadow-2xl flex items-center justify-center gap-4 hover:bg-slate-800 active:scale-[0.98] transition-all group-hover:shadow-emerald-500/10"
-                    >
-                      <Scan className="w-8 h-8 text-emerald-400" />
-                      Capturing
-                    </button>
-                  </div>
-               </div>
-            </section>
-            <div className="grid grid-cols-2 gap-5">
-               <button onClick={() => setCurrentView(AppView.DIARY)} className="bg-white p-9 rounded-[44px] border border-slate-200 shadow-sm flex flex-col items-center gap-4 hover:border-emerald-300 hover:-translate-y-1 transition-all group">
-                 <div className="w-16 h-16 rounded-[22px] bg-emerald-50 flex items-center justify-center group-hover:bg-emerald-100 group-hover:rotate-3 transition-all duration-300 shadow-inner">
-                    <BookOpen className="w-8 h-8 text-emerald-600" />
-                 </div>
-                 <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">History Log</span>
-               </button>
-               <button onClick={() => setCurrentView(AppView.ANALYTICS)} className="bg-white p-9 rounded-[44px] border border-slate-200 shadow-sm flex flex-col items-center gap-4 hover:border-emerald-300 hover:-translate-y-1 transition-all group">
-                 <div className="w-16 h-16 rounded-[22px] bg-slate-50 flex items-center justify-center group-hover:bg-slate-100 group-hover:-rotate-3 transition-all duration-300 shadow-inner">
-                    <BarChart3 className="w-8 h-8 text-slate-500" />
-                 </div>
-                 <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">Analytics</span>
-               </button>
-            </div>
-            <section className="bg-slate-950 rounded-[48px] p-12 relative overflow-hidden group border border-white/5">
-                <div className="absolute inset-0 bg-grid opacity-10"></div>
-                <div className="relative z-10 space-y-6">
-                  <div className="flex items-center gap-3">
-                      <Hexagon className="w-6 h-6 text-emerald-400" />
-                      <h4 className="font-black text-white font-sans text-xl uppercase tracking-tighter">Special Note</h4>
-                  </div>
-                  <p className="text-sm text-slate-400 leading-relaxed font-medium">
-                    Continuous monitoring increases diagnostic fidelity by <span className="text-emerald-400 font-black tracking-widest underline decoration-2 underline-offset-4">14.2%</span>. We recommend a full spectral scan every 24 cycles.
-                  </p>
+              <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-[48px] blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-700"></div>
+              <div className="bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-[40px] p-10 shadow-xl relative overflow-hidden group-hover:-translate-y-1 transition-all duration-500 card-hover">
+                <div className="absolute top-0 right-0 p-10 opacity-[0.03] pointer-events-none group-hover:rotate-12 transition-transform duration-1000">
+                  <BrandIcon className="w-48 h-48" />
                 </div>
+                <div className="relative z-10 space-y-8">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Hexagon className="w-5 h-5 text-emerald-500" />
+                      <h3 className="text-xl font-black text-slate-900 font-display uppercase tracking-tight">Lens Ready</h3>
+                    </div>
+                    <p className="text-slate-500 text-sm font-medium leading-relaxed">Initiate real-time botanical triangulation sequence on your target specimen.</p>
+                  </div>
+                  <button
+                    onClick={() => setIsCameraOpen(true)}
+                    className="w-full py-6 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-[24px] font-black text-xl shadow-xl flex items-center justify-center gap-4 hover:shadow-2xl hover:shadow-slate-900/20 active:scale-[0.98] transition-all duration-300"
+                  >
+                    <Scan className="w-7 h-7 text-emerald-400" />
+                    Start Scan
+                  </button>
+                </div>
+              </div>
+            </section>
+            <div className="grid grid-cols-2 gap-4">
+              <button onClick={() => setCurrentView(AppView.DIARY)} className="bg-white/80 backdrop-blur-sm p-8 rounded-[32px] border border-slate-200/80 shadow-sm flex flex-col items-center gap-4 hover:border-emerald-200 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group">
+                <div className="w-14 h-14 rounded-[18px] bg-emerald-50 flex items-center justify-center group-hover:bg-emerald-100 group-hover:scale-110 transition-all duration-300">
+                  <BookOpen className="w-7 h-7 text-emerald-600" />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">History Log</span>
+              </button>
+              <button onClick={() => setCurrentView(AppView.ANALYTICS)} className="bg-white/80 backdrop-blur-sm p-8 rounded-[32px] border border-slate-200/80 shadow-sm flex flex-col items-center gap-4 hover:border-slate-300 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group">
+                <div className="w-14 h-14 rounded-[18px] bg-slate-100 flex items-center justify-center group-hover:bg-slate-200 group-hover:scale-110 transition-all duration-300">
+                  <BarChart3 className="w-7 h-7 text-slate-600" />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">Analytics</span>
+              </button>
+            </div>
+            <section className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[36px] p-10 relative overflow-hidden group border border-white/5 shadow-xl">
+              <div className="absolute inset-0 bg-grid opacity-5"></div>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl"></div>
+              <div className="relative z-10 space-y-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+                    <Hexagon className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <h4 className="font-black text-white font-display text-lg uppercase tracking-tight">Pro Tip</h4>
+                </div>
+                <p className="text-sm text-slate-400 leading-relaxed font-medium">
+                  Continuous monitoring increases diagnostic fidelity by <span className="text-emerald-400 font-black">14.2%</span>. We recommend a full spectral scan every 24 cycles.
+                </p>
+              </div>
             </section>
           </div>
         );
@@ -426,7 +429,7 @@ const App: React.FC = () => {
   };
 
   const getThemeClass = () => {
-    switch(theme) {
+    switch (theme) {
       case 'NIGHT': return 'theme-night';
       case 'GIRLY': return 'theme-girly';
       case 'BOYISH': return 'theme-boyish';
