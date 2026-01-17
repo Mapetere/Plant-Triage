@@ -1,0 +1,7 @@
+{
+  "name": "Plant Triage: Botanical Growth Lab",
+  "description": "A high-tech plant health diagnostic tool combining Gemini's vision with mathematical growth modeling and interactive care analytics.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
