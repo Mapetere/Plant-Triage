@@ -50,7 +50,7 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewChange, on
         </div>
 
         <button
-          onClick={() => onViewChange(AppView.SETTINGS)}
+          onClick={() => onViewChange(currentView === AppView.SETTINGS ? AppView.HOME : AppView.SETTINGS)}
           className={`relative group w-12 h-12 rounded-[18px] transition-all duration-300 active:scale-90 flex items-center justify-center overflow-hidden shadow-sm ${currentView === AppView.SETTINGS ? 'bg-slate-900 border-slate-700 text-emerald-400 rotate-90 shadow-lg' : 'bg-white border border-slate-200 text-slate-500 hover:text-emerald-600 hover:border-emerald-200 hover:shadow-md'}`}
         >
           <div className="absolute top-0 right-0 p-1">

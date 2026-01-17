@@ -317,51 +317,66 @@ const App: React.FC = () => {
 
       case AppView.SETTINGS:
         return (
-          <div className="p-8 space-y-8 animate-in slide-in-from-right-4 duration-500 pb-36">
-            <div className="flex items-center gap-5">
-              <div className="w-14 h-14 bg-slate-900 rounded-[24px] flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform">
-                <Settings className="w-7 h-7 text-emerald-400 animate-spin-slow" />
-              </div>
-              <div>
-                <h2 className="text-3xl font-black text-slate-900 font-display tracking-tighter uppercase">Config</h2>
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Environment Parameters</p>
-              </div>
-            </div>
-            <section className="bg-white rounded-[44px] p-10 space-y-8 border border-slate-200 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-2 h-full bg-blue-500/20"></div>
-              <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <Bell className="w-6 h-6 text-blue-600" />
-                  <h3 className="font-black text-slate-900 font-display text-xl uppercase tracking-tighter">Bio-Sync Alerts</h3>
+          <>
+            {/* Backdrop - click to close */}
+            <div
+              className="fixed inset-0 bg-black/5 z-10 animate-in fade-in duration-200"
+              onClick={() => setCurrentView(AppView.HOME)}
+            />
+            <div className="relative z-20 p-8 space-y-8 animate-in slide-in-from-right-4 duration-500 pb-36">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-5">
+                  <div className="w-14 h-14 bg-slate-900 rounded-[24px] flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform">
+                    <Settings className="w-7 h-7 text-emerald-400 animate-spin-slow" />
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-black text-slate-900 font-display tracking-tighter uppercase">Config</h2>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Environment Parameters</p>
+                  </div>
                 </div>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  Consistent spectral data is critical for accurate longitudinal modeling. We suggest a 24-hour cycle.
-                </p>
+                <button
+                  onClick={() => setCurrentView(AppView.HOME)}
+                  className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 hover:text-slate-700 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
-              <div className="flex gap-3">
-                {['12', '24', '48', '72'].map(h => (
-                  <button
-                    key={h}
-                    onClick={() => setNotifInterval(h)}
-                    className={`flex-1 py-4 rounded-[20px] font-black text-xs transition-all ${notifInterval === h ? 'bg-slate-950 text-white shadow-xl scale-110 z-10' : 'bg-slate-50 text-slate-500 hover:bg-emerald-50 border border-transparent hover:text-emerald-700'}`}
-                  >
-                    {h}H
-                  </button>
-                ))}
-              </div>
-              <button
-                onClick={requestNotifications}
-                className={`w-full py-5 rounded-[24px] font-black flex items-center justify-center gap-3 transition-all uppercase tracking-widest ${notifEnabled ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-950 text-white shadow-xl active:scale-95'}`}
-              >
-                {notifEnabled ? <><Info className="w-4 h-4" /> Sync Active</> : <><Bell className="w-4 h-4" /> Enable Pulse</>}
-              </button>
-            </section>
-          </div>
+              <section className="bg-white rounded-[44px] p-10 space-y-8 border border-slate-200 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-2 h-full bg-blue-500/20"></div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    <Bell className="w-6 h-6 text-blue-600" />
+                    <h3 className="font-black text-slate-900 font-display text-xl uppercase tracking-tighter">Bio-Sync Alerts</h3>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed font-medium">
+                    Consistent spectral data is critical for accurate longitudinal modeling. We suggest a 24-hour cycle.
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  {['12', '24', '48', '72'].map(h => (
+                    <button
+                      key={h}
+                      onClick={() => setNotifInterval(h)}
+                      className={`flex-1 py-4 rounded-[20px] font-black text-xs transition-all ${notifInterval === h ? 'bg-slate-950 text-white shadow-xl scale-110 z-10' : 'bg-slate-50 text-slate-500 hover:bg-emerald-50 border border-transparent hover:text-emerald-700'}`}
+                    >
+                      {h}H
+                    </button>
+                  ))}
+                </div>
+                <button
+                  onClick={requestNotifications}
+                  className={`w-full py-5 rounded-[24px] font-black flex items-center justify-center gap-3 transition-all uppercase tracking-widest ${notifEnabled ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-950 text-white shadow-xl active:scale-95'}`}
+                >
+                  {notifEnabled ? <><Info className="w-4 h-4" /> Sync Active</> : <><Bell className="w-4 h-4" /> Enable Pulse</>}
+                </button>
+              </section>
+            </div>
+          </>
         );
 
       default:
         return (
-          <div className="min-h-[80vh] flex flex-col animate-in fade-in duration-700 pb-44">
+          <div className="min-h-[75vh] flex flex-col animate-in fade-in duration-700 pb-56">
             {/* Spacious Hero Section */}
             <section className="flex-1 flex flex-col items-center justify-center text-center px-8 py-12 relative">
               {/* Soft gradient orb */}
@@ -407,7 +422,7 @@ const App: React.FC = () => {
                   onClick={() => fileInputRef.current?.click()}
                   className="text-slate-400 text-sm font-medium pt-4 hover:text-emerald-600 transition-colors"
                 >
-                  or upload from gallery
+                  or upload from device
                 </button>
               </div>
             </section>
