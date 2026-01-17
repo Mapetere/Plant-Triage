@@ -136,9 +136,29 @@ const App: React.FC = () => {
 
     switch (currentView) {
       case AppView.TRIAGE:
-        return diagnosis ? (
-          <DiagnosisDisplay data={diagnosis} onRetry={resetDiagnosis} />
-        ) : (
+        // Show loading state while processing
+        if (isLoading) {
+          return (
+            <div className="p-12 text-center flex flex-col items-center justify-center min-h-[65vh]">
+              <div className="relative mb-8">
+                <div className="w-24 h-24 rounded-full border-4 border-emerald-100 border-t-emerald-500 animate-spin"></div>
+                <Loader2 className="w-10 h-10 text-emerald-500 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
+              </div>
+              <div className="space-y-2">
+                <h2 className="text-2xl font-black text-slate-900 font-display tracking-tight uppercase">Analyzing</h2>
+                <p className="text-slate-500 font-medium text-sm">Processing spectral data...</p>
+              </div>
+            </div>
+          );
+        }
+
+        // Show diagnosis if available
+        if (diagnosis) {
+          return <DiagnosisDisplay data={diagnosis} onRetry={resetDiagnosis} />;
+        }
+
+        // Show capture options if no diagnosis
+        return (
           <div className="p-12 text-center flex flex-col items-center justify-center min-h-[65vh] bg-grid">
             <div className="group relative" onClick={() => setIsCameraOpen(true)}>
               <div className="absolute -inset-4 bg-emerald-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
