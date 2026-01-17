@@ -361,99 +361,101 @@ const App: React.FC = () => {
 
       default:
         return (
-          <div className="p-6 space-y-6 animate-in fade-in duration-700 pb-36">
-            {/* Welcome Section */}
-            <section className="space-y-2 pt-2">
-              <p className="text-slate-400 text-sm font-medium">Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}</p>
-              <h2 className="text-3xl font-black text-slate-900 font-display tracking-tight">What needs care today?</h2>
-            </section>
+          <div className="min-h-[85vh] flex flex-col animate-in fade-in duration-700 pb-36">
+            {/* Spacious Hero Section */}
+            <section className="flex-1 flex flex-col items-center justify-center text-center px-8 py-12 relative">
+              {/* Soft gradient orb */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-br from-emerald-100 via-emerald-50 to-transparent rounded-full blur-3xl opacity-60 pointer-events-none"></div>
 
-            {/* Primary Action - Scan */}
-            <section className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 rounded-[32px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <button
-                onClick={() => setIsCameraOpen(true)}
-                className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-[28px] p-8 relative overflow-hidden group-hover:-translate-y-0.5 transition-all duration-300 shadow-xl hover:shadow-2xl"
-              >
-                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl"></div>
-                <div className="relative z-10 flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-[20px] bg-emerald-500/15 flex items-center justify-center border border-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
-                    <Scan className="w-8 h-8 text-emerald-400" />
-                  </div>
-                  <div className="flex-1 text-left">
-                    <h3 className="text-xl font-black text-white font-display tracking-tight">New Diagnosis</h3>
-                    <p className="text-slate-400 text-sm font-medium mt-0.5">Capture or upload a plant photo</p>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center">
-                    <Camera className="w-5 h-5 text-white/60" />
-                  </div>
-                </div>
-              </button>
-            </section>
-
-            {/* Quick Stats */}
-            <section className="grid grid-cols-2 gap-3">
-              <div className="bg-white/80 backdrop-blur-sm rounded-[24px] p-5 border border-slate-100 shadow-sm">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center">
-                    <Dna className="w-5 h-5 text-emerald-600" />
-                  </div>
-                  <span className="text-[9px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2 py-1 rounded-lg">Live</span>
-                </div>
-                <p className="text-2xl font-black text-slate-900">{diary.length}</p>
-                <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Plants Tracked</p>
+              {/* Floating leaf decoration */}
+              <div className="absolute top-20 right-8 w-16 h-16 opacity-10">
+                <BrandIcon className="w-full h-full animate-float" />
               </div>
-              <div className="bg-white/80 backdrop-blur-sm rounded-[24px] p-5 border border-slate-100 shadow-sm">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-slate-600" />
-                  </div>
+              <div className="absolute bottom-32 left-6 w-12 h-12 opacity-5 rotate-45">
+                <BrandIcon className="w-full h-full" />
+              </div>
+
+              <div className="relative z-10 space-y-6 max-w-sm">
+                {/* Greeting */}
+                <div className="space-y-3">
+                  <p className="text-slate-400 text-sm font-medium tracking-wide">
+                    {new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 18 ? 'Good afternoon' : 'Good evening'}
+                  </p>
+                  <h1 className="text-4xl font-black text-slate-900 font-display tracking-tight leading-tight">
+                    Your plants are<br />waiting for you
+                  </h1>
+                  <p className="text-slate-500 text-base font-medium leading-relaxed max-w-[280px] mx-auto">
+                    Capture a photo to get instant health insights and care recommendations.
+                  </p>
                 </div>
-                <p className="text-2xl font-black text-slate-900">{diary.length > 0 ? Math.round(diary.reduce((acc, e) => acc + e.healthScore, 0) / diary.length) : '--'}%</p>
-                <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Avg Health</p>
+
+                {/* Main action - elegant and inviting */}
+                <div className="pt-4">
+                  <button
+                    onClick={() => setIsCameraOpen(true)}
+                    className="group relative inline-flex items-center gap-4 px-8 py-5 bg-slate-900 text-white rounded-full font-bold text-lg shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:shadow-slate-900/30 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors">
+                      <Camera className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    <span>Start Diagnosis</span>
+                  </button>
+                </div>
+
+                {/* Subtle helper text */}
+                <p className="text-slate-400 text-xs font-medium pt-2">
+                  or upload from your gallery
+                </p>
               </div>
             </section>
 
-            {/* Quick Actions */}
-            <section className="space-y-3">
-              <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest px-1">Quick Access</h4>
-              <div className="space-y-2">
-                <button onClick={() => setCurrentView(AppView.DIARY)} className="w-full bg-white/80 backdrop-blur-sm rounded-[20px] p-4 border border-slate-100 shadow-sm flex items-center gap-4 hover:border-emerald-200 hover:shadow-md transition-all duration-200 group">
-                  <div className="w-11 h-11 rounded-[14px] bg-emerald-50 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
-                    <BookOpen className="w-5 h-5 text-emerald-600" />
-                  </div>
-                  <div className="flex-1 text-left">
-                    <p className="text-sm font-bold text-slate-800">Plant Journal</p>
-                    <p className="text-xs text-slate-400 font-medium">View diagnosis history</p>
-                  </div>
-                  <Layers className="w-4 h-4 text-slate-300" />
-                </button>
-                <button onClick={() => setCurrentView(AppView.ANALYTICS)} className="w-full bg-white/80 backdrop-blur-sm rounded-[20px] p-4 border border-slate-100 shadow-sm flex items-center gap-4 hover:border-slate-200 hover:shadow-md transition-all duration-200 group">
-                  <div className="w-11 h-11 rounded-[14px] bg-slate-100 flex items-center justify-center group-hover:bg-slate-200 transition-colors">
-                    <BarChart3 className="w-5 h-5 text-slate-600" />
-                  </div>
-                  <div className="flex-1 text-left">
-                    <p className="text-sm font-bold text-slate-800">Analytics</p>
-                    <p className="text-xs text-slate-400 font-medium">Insights & predictions</p>
-                  </div>
-                  <Layers className="w-4 h-4 text-slate-300" />
-                </button>
-              </div>
-            </section>
+            {/* Minimal bottom section - only shows if user has data */}
+            {diary.length > 0 && (
+              <section className="px-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">Your Garden</h3>
+                  <button
+                    onClick={() => setCurrentView(AppView.DIARY)}
+                    className="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors"
+                  >
+                    View all →
+                  </button>
+                </div>
+                <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+                  {diary.slice(-4).reverse().map((entry) => (
+                    <div
+                      key={entry.id}
+                      className="shrink-0 w-20 h-20 rounded-2xl overflow-hidden bg-slate-100 shadow-sm border border-slate-100"
+                    >
+                      <img
+                        src={`data:image/jpeg;base64,${entry.imageBase64}`}
+                        className="w-full h-full object-cover"
+                        alt="Plant"
+                      />
+                    </div>
+                  ))}
+                  <button
+                    onClick={() => setCurrentView(AppView.DIARY)}
+                    className="shrink-0 w-20 h-20 rounded-2xl bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center hover:bg-slate-100 transition-colors"
+                  >
+                    <Layers className="w-5 h-5 text-slate-400" />
+                  </button>
+                </div>
+              </section>
+            )}
 
-            {/* Tip Card */}
+            {/* First-time user gentle nudge */}
             {diary.length === 0 && (
-              <section className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-[24px] p-6 border border-emerald-100/80">
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
-                    <Info className="w-5 h-5 text-white" />
+              <section className="px-8 pb-4">
+                <div className="flex items-center justify-center gap-6 text-slate-400">
+                  <div className="flex items-center gap-2">
+                    <Scan className="w-4 h-4" />
+                    <span className="text-xs font-medium">Identify species</span>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-emerald-900 mb-1">Getting Started</h4>
-                    <p className="text-sm text-emerald-700/80 leading-relaxed">
-                      Tap <span className="font-bold">New Diagnosis</span> to analyze your first plant. We'll identify species, health issues, and provide care instructions.
-                    </p>
+                  <div className="w-1 h-1 rounded-full bg-slate-300"></div>
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4" />
+                    <span className="text-xs font-medium">Track health</span>
                   </div>
                 </div>
               </section>
