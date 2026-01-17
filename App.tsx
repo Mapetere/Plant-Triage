@@ -59,9 +59,19 @@ const App: React.FC = () => {
       setDiagnosis(result);
       saveToDiary(base64, result);
       setIsLoading(false);
-    } catch (err) {
-      setError("Analysis failed. Telemetry sync lost.");
+    } catch (err: any) {
       setIsLoading(false);
+
+      // Check network status
+      if (!navigator.onLine) {
+        setError("NETWORK: You appear to be offline. Please check your internet connection and try again.");
+      } else if (err?.message?.includes('API') || err?.message?.includes('key')) {
+        setError("CONFIG: The analysis service isn't configured correctly. Please contact support.");
+      } else if (err?.message?.includes('network') || err?.message?.includes('fetch')) {
+        setError("CONNECTION: Your connection seems unstable. Please try again when you have a stronger signal.");
+      } else {
+        setError("UNKNOWN: Something unexpected happened. Please contact support for help.");
+      }
     }
   };
 
@@ -154,21 +164,38 @@ const App: React.FC = () => {
 
         // Show error if API failed
         if (error) {
+          const isNetworkError = error.startsWith('NETWORK') || error.startsWith('CONNECTION');
+          const isConfigError = error.startsWith('CONFIG');
+          const isUnknownError = error.startsWith('UNKNOWN');
+          const errorMessage = error.split(': ').slice(1).join(': ');
+
           return (
             <div className="p-12 text-center flex flex-col items-center justify-center min-h-[65vh]">
-              <div className="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center mb-6">
-                <Info className="w-10 h-10 text-red-500" />
+              <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 ${isNetworkError ? 'bg-amber-50' : 'bg-red-50'}`}>
+                <Info className={`w-10 h-10 ${isNetworkError ? 'text-amber-500' : 'text-red-500'}`} />
               </div>
               <div className="space-y-2 mb-8">
-                <h2 className="text-2xl font-black text-slate-900 font-display tracking-tight uppercase">Analysis Failed</h2>
-                <p className="text-slate-500 font-medium text-sm max-w-[280px]">{error}</p>
+                <h2 className="text-2xl font-black text-slate-900 font-display tracking-tight uppercase">
+                  {isNetworkError ? 'Connection Issue' : isConfigError ? 'Setup Required' : 'Something Went Wrong'}
+                </h2>
+                <p className="text-slate-500 font-medium text-sm max-w-[280px]">{errorMessage}</p>
               </div>
-              <button
-                onClick={() => { setError(null); setCurrentView(AppView.HOME); }}
-                className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold shadow-lg hover:bg-slate-800 transition-all"
-              >
-                Try Again
-              </button>
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => { setError(null); setCurrentView(AppView.HOME); }}
+                  className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold shadow-lg hover:bg-slate-800 transition-all"
+                >
+                  Try Again
+                </button>
+                {(isConfigError || isUnknownError) && (
+                  <a
+                    href="mailto:mapeterenyashapraise@gmail.com?subject=Plant Triage - Technical Issue"
+                    className="px-8 py-3 bg-white text-slate-600 rounded-2xl font-semibold border border-slate-200 hover:border-emerald-300 hover:text-emerald-600 transition-all text-sm"
+                  >
+                    Contact Support
+                  </a>
+                )}
+              </div>
             </div>
           );
         }
@@ -438,7 +465,7 @@ const App: React.FC = () => {
                     {new Date().getHours() < 12 ? 'Good morning' : new Date().getHours() < 18 ? 'Good afternoon' : 'Good evening'}
                   </p>
                   <h1 className="text-4xl font-black text-slate-900 font-display tracking-tight leading-tight">
-                    Your plants are<br />waiting for you
+                    Ready to<br />diagnose
                   </h1>
                   <p className="text-slate-500 text-base font-medium leading-relaxed max-w-[280px] mx-auto">
                     Capture a photo to get instant health insights and care recommendations.
