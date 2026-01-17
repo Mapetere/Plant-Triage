@@ -152,6 +152,27 @@ const App: React.FC = () => {
           );
         }
 
+        // Show error if API failed
+        if (error) {
+          return (
+            <div className="p-12 text-center flex flex-col items-center justify-center min-h-[65vh]">
+              <div className="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center mb-6">
+                <Info className="w-10 h-10 text-red-500" />
+              </div>
+              <div className="space-y-2 mb-8">
+                <h2 className="text-2xl font-black text-slate-900 font-display tracking-tight uppercase">Analysis Failed</h2>
+                <p className="text-slate-500 font-medium text-sm max-w-[280px]">{error}</p>
+              </div>
+              <button
+                onClick={() => { setError(null); setCurrentView(AppView.HOME); }}
+                className="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold shadow-lg hover:bg-slate-800 transition-all"
+              >
+                Try Again
+              </button>
+            </div>
+          );
+        }
+
         // Show diagnosis if available
         if (diagnosis) {
           return <DiagnosisDisplay data={diagnosis} onRetry={resetDiagnosis} />;
