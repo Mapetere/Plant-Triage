@@ -361,68 +361,103 @@ const App: React.FC = () => {
 
       default:
         return (
-          <div className="p-8 space-y-10 animate-in fade-in duration-700 pb-36 bg-grid">
-            <section className="space-y-5 mt-4">
-              <div className="flex items-center gap-3">
-                <div className="px-4 py-1.5 bg-emerald-50 text-emerald-700 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] border border-emerald-100">Autonomous Node 3.8.2</div>
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_12px_rgba(16,185,129,0.6)]"></div>
-              </div>
-              <h2 className="text-6xl font-black text-slate-900 leading-[0.85] font-display tracking-tighter">Plant<br /><span className="text-gradient uppercase">Triage</span> Lab</h2>
-              <p className="text-slate-500 font-medium text-lg leading-relaxed max-w-[300px]">Precision diagnostic matrix for high-fidelity botanical surveillance.</p>
+          <div className="p-6 space-y-6 animate-in fade-in duration-700 pb-36">
+            {/* Welcome Section */}
+            <section className="space-y-2 pt-2">
+              <p className="text-slate-400 text-sm font-medium">Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}</p>
+              <h2 className="text-3xl font-black text-slate-900 font-display tracking-tight">What needs care today?</h2>
             </section>
+
+            {/* Primary Action - Scan */}
             <section className="relative group">
-              <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-[48px] blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-700"></div>
-              <div className="bg-white/80 backdrop-blur-xl border border-slate-200/80 rounded-[40px] p-10 shadow-xl relative overflow-hidden group-hover:-translate-y-1 transition-all duration-500 card-hover">
-                <div className="absolute top-0 right-0 p-10 opacity-[0.03] pointer-events-none group-hover:rotate-12 transition-transform duration-1000">
-                  <BrandIcon className="w-48 h-48" />
-                </div>
-                <div className="relative z-10 space-y-8">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Hexagon className="w-5 h-5 text-emerald-500" />
-                      <h3 className="text-xl font-black text-slate-900 font-display uppercase tracking-tight">Lens Ready</h3>
-                    </div>
-                    <p className="text-slate-500 text-sm font-medium leading-relaxed">Initiate real-time botanical triangulation sequence on your target specimen.</p>
+              <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 rounded-[32px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <button
+                onClick={() => setIsCameraOpen(true)}
+                className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-[28px] p-8 relative overflow-hidden group-hover:-translate-y-0.5 transition-all duration-300 shadow-xl hover:shadow-2xl"
+              >
+                <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl"></div>
+                <div className="relative z-10 flex items-center gap-6">
+                  <div className="w-16 h-16 rounded-[20px] bg-emerald-500/15 flex items-center justify-center border border-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
+                    <Scan className="w-8 h-8 text-emerald-400" />
                   </div>
-                  <button
-                    onClick={() => setIsCameraOpen(true)}
-                    className="w-full py-6 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-[24px] font-black text-xl shadow-xl flex items-center justify-center gap-4 hover:shadow-2xl hover:shadow-slate-900/20 active:scale-[0.98] transition-all duration-300"
-                  >
-                    <Scan className="w-7 h-7 text-emerald-400" />
-                    Start Scan
-                  </button>
+                  <div className="flex-1 text-left">
+                    <h3 className="text-xl font-black text-white font-display tracking-tight">New Diagnosis</h3>
+                    <p className="text-slate-400 text-sm font-medium mt-0.5">Capture or upload a plant photo</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center">
+                    <Camera className="w-5 h-5 text-white/60" />
+                  </div>
                 </div>
+              </button>
+            </section>
+
+            {/* Quick Stats */}
+            <section className="grid grid-cols-2 gap-3">
+              <div className="bg-white/80 backdrop-blur-sm rounded-[24px] p-5 border border-slate-100 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center">
+                    <Dna className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <span className="text-[9px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2 py-1 rounded-lg">Live</span>
+                </div>
+                <p className="text-2xl font-black text-slate-900">{diary.length}</p>
+                <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Plants Tracked</p>
+              </div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-[24px] p-5 border border-slate-100 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center">
+                    <TrendingUp className="w-5 h-5 text-slate-600" />
+                  </div>
+                </div>
+                <p className="text-2xl font-black text-slate-900">{diary.length > 0 ? Math.round(diary.reduce((acc, e) => acc + e.healthScore, 0) / diary.length) : '--'}%</p>
+                <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">Avg Health</p>
               </div>
             </section>
-            <div className="grid grid-cols-2 gap-4">
-              <button onClick={() => setCurrentView(AppView.DIARY)} className="bg-white/80 backdrop-blur-sm p-8 rounded-[32px] border border-slate-200/80 shadow-sm flex flex-col items-center gap-4 hover:border-emerald-200 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group">
-                <div className="w-14 h-14 rounded-[18px] bg-emerald-50 flex items-center justify-center group-hover:bg-emerald-100 group-hover:scale-110 transition-all duration-300">
-                  <BookOpen className="w-7 h-7 text-emerald-600" />
-                </div>
-                <span className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">History Log</span>
-              </button>
-              <button onClick={() => setCurrentView(AppView.ANALYTICS)} className="bg-white/80 backdrop-blur-sm p-8 rounded-[32px] border border-slate-200/80 shadow-sm flex flex-col items-center gap-4 hover:border-slate-300 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group">
-                <div className="w-14 h-14 rounded-[18px] bg-slate-100 flex items-center justify-center group-hover:bg-slate-200 group-hover:scale-110 transition-all duration-300">
-                  <BarChart3 className="w-7 h-7 text-slate-600" />
-                </div>
-                <span className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-600">Analytics</span>
-              </button>
-            </div>
-            <section className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-[36px] p-10 relative overflow-hidden group border border-white/5 shadow-xl">
-              <div className="absolute inset-0 bg-grid opacity-5"></div>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl"></div>
-              <div className="relative z-10 space-y-5">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
-                    <Hexagon className="w-5 h-5 text-emerald-400" />
+
+            {/* Quick Actions */}
+            <section className="space-y-3">
+              <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest px-1">Quick Access</h4>
+              <div className="space-y-2">
+                <button onClick={() => setCurrentView(AppView.DIARY)} className="w-full bg-white/80 backdrop-blur-sm rounded-[20px] p-4 border border-slate-100 shadow-sm flex items-center gap-4 hover:border-emerald-200 hover:shadow-md transition-all duration-200 group">
+                  <div className="w-11 h-11 rounded-[14px] bg-emerald-50 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+                    <BookOpen className="w-5 h-5 text-emerald-600" />
                   </div>
-                  <h4 className="font-black text-white font-display text-lg uppercase tracking-tight">Pro Tip</h4>
-                </div>
-                <p className="text-sm text-slate-400 leading-relaxed font-medium">
-                  Continuous monitoring increases diagnostic fidelity by <span className="text-emerald-400 font-black">14.2%</span>. We recommend a full spectral scan every 24 cycles.
-                </p>
+                  <div className="flex-1 text-left">
+                    <p className="text-sm font-bold text-slate-800">Plant Journal</p>
+                    <p className="text-xs text-slate-400 font-medium">View diagnosis history</p>
+                  </div>
+                  <Layers className="w-4 h-4 text-slate-300" />
+                </button>
+                <button onClick={() => setCurrentView(AppView.ANALYTICS)} className="w-full bg-white/80 backdrop-blur-sm rounded-[20px] p-4 border border-slate-100 shadow-sm flex items-center gap-4 hover:border-slate-200 hover:shadow-md transition-all duration-200 group">
+                  <div className="w-11 h-11 rounded-[14px] bg-slate-100 flex items-center justify-center group-hover:bg-slate-200 transition-colors">
+                    <BarChart3 className="w-5 h-5 text-slate-600" />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <p className="text-sm font-bold text-slate-800">Analytics</p>
+                    <p className="text-xs text-slate-400 font-medium">Insights & predictions</p>
+                  </div>
+                  <Layers className="w-4 h-4 text-slate-300" />
+                </button>
               </div>
             </section>
+
+            {/* Tip Card */}
+            {diary.length === 0 && (
+              <section className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-[24px] p-6 border border-emerald-100/80">
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
+                    <Info className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-emerald-900 mb-1">Getting Started</h4>
+                    <p className="text-sm text-emerald-700/80 leading-relaxed">
+                      Tap <span className="font-bold">New Diagnosis</span> to analyze your first plant. We'll identify species, health issues, and provide care instructions.
+                    </p>
+                  </div>
+                </div>
+              </section>
+            )}
           </div>
         );
     }
