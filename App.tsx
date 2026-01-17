@@ -479,7 +479,7 @@ const App: React.FC = () => {
 
   return (
     <div className={`${getThemeClass()} transition-colors duration-700`}>
-      <Layout currentView={currentView} onViewChange={setCurrentView}>
+      <Layout currentView={currentView} onViewChange={setCurrentView} onScan={() => setIsCameraOpen(true)}>
         <input type="file" accept="image/*" ref={fileInputRef} onChange={(e) => {
           const file = e.target.files?.[0];
           if (file) {
