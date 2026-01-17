@@ -64,51 +64,22 @@ const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewChange, on
         {children}
       </main>
 
-      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-lg bg-white/90 backdrop-blur-2xl border-t border-slate-100/80 p-4 pb-8 flex items-center z-40 shadow-[0_-8px_32px_rgba(0,0,0,0.06)]">
-        <div className="flex-1 flex justify-around pr-8">
-          <button
-            onClick={() => onViewChange(AppView.HOME)}
-            className={`flex flex-col items-center gap-1.5 transition-all duration-300 ${currentView === AppView.HOME ? 'text-emerald-600 scale-110' : 'text-slate-400 hover:text-emerald-500'}`}
-          >
-            <Home className={`w-6 h-6 transition-all duration-300 ${currentView === AppView.HOME ? 'stroke-[2.5px]' : ''}`} />
-            <span className="text-[8px] font-black uppercase tracking-widest">Home</span>
-          </button>
-        </div>
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-lg bg-white/90 backdrop-blur-2xl border-t border-slate-100/80 p-4 pb-8 flex items-center justify-around z-40 shadow-[0_-8px_32px_rgba(0,0,0,0.06)]">
+        <button
+          onClick={() => onViewChange(AppView.HOME)}
+          className={`flex flex-col items-center gap-1.5 transition-all duration-300 ${currentView === AppView.HOME ? 'text-emerald-600 scale-110' : 'text-slate-400 hover:text-emerald-500'}`}
+        >
+          <Home className={`w-6 h-6 transition-all duration-300 ${currentView === AppView.HOME ? 'stroke-[2.5px]' : ''}`} />
+          <span className="text-[8px] font-black uppercase tracking-widest">Home</span>
+        </button>
 
-        {/* Center Scan Button - Opens camera directly */}
-        <div className="absolute left-1/2 -translate-x-1/2 -top-4">
-          <button
-            onClick={onScan}
-            className="group relative"
-          >
-            <div className="absolute inset-0 rounded-full blur-lg bg-emerald-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 relative bg-emerald-500 shadow-lg shadow-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/40 hover:-translate-y-0.5 active:scale-95">
-              <Plus className="w-7 h-7 text-white relative z-10" />
-            </div>
-
-            <div className="absolute -bottom-7 left-1/2 -translate-x-1/2">
-              <span className="text-[8px] font-bold uppercase tracking-wider text-slate-500">Scan</span>
-            </div>
-          </button>
-        </div>
-
-        <div className="flex-1 flex justify-around pl-8">
-          <button
-            onClick={() => onViewChange(AppView.DIARY)}
-            className={`flex flex-col items-center gap-1.5 transition-all duration-300 ${currentView === AppView.DIARY ? 'text-emerald-600 scale-110' : 'text-slate-400 hover:text-emerald-500'}`}
-          >
-            <BookOpen className={`w-6 h-6 transition-all duration-300 ${currentView === AppView.DIARY ? 'stroke-[2.5px]' : ''}`} />
-            <span className="text-[8px] font-black uppercase tracking-widest">Log</span>
-          </button>
-
-          <button
-            onClick={() => onViewChange(AppView.SETTINGS)}
-            className={`flex flex-col items-center gap-1.5 transition-all duration-300 md:hidden ${currentView === AppView.SETTINGS ? 'text-emerald-600 scale-110' : 'text-slate-400 hover:text-emerald-500'}`}
-          >
-            <LayoutGrid className={`w-6 h-6 transition-all duration-300 ${currentView === AppView.SETTINGS ? 'stroke-[2.5px]' : ''}`} />
-            <span className="text-[8px] font-black uppercase tracking-widest">Apps</span>
-          </button>
-        </div>
+        <button
+          onClick={() => onViewChange(AppView.DIARY)}
+          className={`flex flex-col items-center gap-1.5 transition-all duration-300 ${currentView === AppView.DIARY ? 'text-emerald-600 scale-110' : 'text-slate-400 hover:text-emerald-500'}`}
+        >
+          <BookOpen className={`w-6 h-6 transition-all duration-300 ${currentView === AppView.DIARY ? 'stroke-[2.5px]' : ''}`} />
+          <span className="text-[8px] font-black uppercase tracking-widest">Log</span>
+        </button>
       </nav>
     </div>
   );
