@@ -36,8 +36,8 @@ const Logo: React.FC = () => (
 const Layout: React.FC<LayoutProps> = ({ children, currentView, onViewChange, onScan }) => {
   return (
     <div className="min-h-screen flex flex-col max-w-lg mx-auto bg-inherit shadow-2xl relative border-x border-slate-200/30 overflow-hidden">
-      {/* Header - Fixed with glassmorphism */}
-      <header className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-lg px-6 py-4 bg-white/50 backdrop-blur-2xl flex items-center justify-between z-30 border-b border-white/40 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
+      {/* Header - Fixed with strong glassmorphism */}
+      <header className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-lg px-6 py-4 bg-white/30 backdrop-blur-3xl flex items-center justify-between z-30 border-b border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.02)]">
         <div className="flex items-center gap-4">
           <Logo />
           <div>

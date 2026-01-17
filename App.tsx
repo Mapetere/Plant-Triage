@@ -444,7 +444,7 @@ const App: React.FC = () => {
 
       default:
         return (
-          <div className="min-h-[75vh] flex flex-col animate-in fade-in duration-700 pb-56">
+          <div className="min-h-[70vh] flex flex-col animate-in fade-in duration-700 pb-28">
             {/* Spacious Hero Section */}
             <section className="flex-1 flex flex-col items-center justify-center text-center px-8 py-12 relative">
               {/* Soft gradient orb */}
@@ -472,26 +472,23 @@ const App: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Main action - light and elegant */}
-                <div className="pt-6">
+                {/* Main actions - side by side */}
+                <div className="pt-6 flex gap-3">
                   <button
                     onClick={() => setIsCameraOpen(true)}
-                    className="group relative inline-flex items-center gap-3 px-6 py-4 bg-white text-slate-800 rounded-2xl font-semibold text-base border border-slate-200 shadow-sm hover:shadow-lg hover:border-emerald-200 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300"
+                    className="group flex-1 flex items-center justify-center gap-2 px-5 py-4 bg-emerald-500 text-white rounded-2xl font-semibold shadow-lg shadow-emerald-500/20 hover:shadow-xl hover:bg-emerald-600 active:scale-[0.98] transition-all duration-300"
                   >
-                    <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
-                      <Camera className="w-5 h-5 text-emerald-600" />
-                    </div>
-                    <span>Start Diagnosis</span>
+                    <Camera className="w-5 h-5" />
+                    <span>Take Photo</span>
+                  </button>
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="group flex-1 flex items-center justify-center gap-2 px-5 py-4 bg-white text-slate-700 rounded-2xl font-semibold border border-slate-200 shadow-sm hover:shadow-md hover:border-emerald-200 active:scale-[0.98] transition-all duration-300"
+                  >
+                    <ImageIcon className="w-5 h-5" />
+                    <span>Upload</span>
                   </button>
                 </div>
-
-                {/* Secondary option */}
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="text-slate-400 text-sm font-medium pt-4 hover:text-emerald-600 transition-colors"
-                >
-                  or upload from device
-                </button>
               </div>
             </section>
 
