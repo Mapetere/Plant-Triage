@@ -2,9 +2,30 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { PlantDiagnosis, DiaryEntry } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Get API key from environment variable or localStorage
+function getApiKey(): string {
+  // Try Vite's process.env replacement (defined in vite.config.ts)
+  const envKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
+  if (envKey && envKey.trim() !== '') return envKey;
+
+  // Fallback to localStorage for in-app configuration
+  if (typeof window !== 'undefined') {
+    const storedKey = localStorage.getItem('plant_triage_api_key');
+    if (storedKey && storedKey.trim() !== '') return storedKey;
+  }
+
+  return '';
+}
 
 export async function analyzePlant(base64Image: string, history?: DiaryEntry[]): Promise<PlantDiagnosis> {
+  const apiKey = getApiKey();
+
+  if (!apiKey) {
+    throw new Error('API key not configured. Please add your Gemini API key in Settings.');
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
+
   const parts: any[] = [
     { inlineData: { mimeType: "image/jpeg", data: base64Image } }
   ];
@@ -19,7 +40,7 @@ export async function analyzePlant(base64Image: string, history?: DiaryEntry[]):
   }
 
   const response = await ai.models.generateContent({
-    model: "gemini-3-pro-preview",
+    model: "gemini-1.5-flash",
     contents: {
       parts: [
         ...parts,

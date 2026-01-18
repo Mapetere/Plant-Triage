@@ -9,7 +9,7 @@ import {
   Camera, Image as ImageIcon, Loader2, Sparkles, Microscope,
   Info, Scan, Link as LinkIcon,
   BookOpen, Settings, Bell, Palette, BarChart3,
-  Dna, Layers, ArrowUpRight, TrendingUp, Hexagon, X, Globe
+  Dna, Layers, ArrowUpRight, TrendingUp, Hexagon, X, Globe, Key, Check
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -24,6 +24,8 @@ const App: React.FC = () => {
   const [remoteUrl, setRemoteUrl] = useState('');
   const [notifEnabled, setNotifEnabled] = useState(false);
   const [notifInterval, setNotifInterval] = useState('24');
+  const [apiKey, setApiKey] = useState('');
+  const [apiKeySaved, setApiKeySaved] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -31,6 +33,11 @@ const App: React.FC = () => {
     if (savedDiary) setDiary(JSON.parse(savedDiary));
     const savedTheme = localStorage.getItem('plant_theme');
     if (savedTheme) setTheme(savedTheme as AppTheme);
+    const savedApiKey = localStorage.getItem('plant_triage_api_key');
+    if (savedApiKey) {
+      setApiKey(savedApiKey);
+      setApiKeySaved(true);
+    }
   }, []);
 
   const saveToDiary = (img: string, diag: PlantDiagnosis) => {
